@@ -18,9 +18,11 @@ $router->get('/', function () use ($router) {
 });
 $router->group(['prefix' => 'api'], function () use ($router) {
     // Matches "/api/register
-   $router->post('register', 'AuthController@register');
-     // Matches "/api/login
-    $router->post('login', 'AuthController@login');
+    $router->post('registermember', 'AuthController@registerMember');
+    $router->post('registerguest', 'AuthController@registerGuest');
+      // Matches "/api/login
+     $router->post('loginmember', 'AuthController@loginMember');
+     $router->post('loginguest', 'AuthController@loginGuest');
 
     // Matches "/api/profile
     $router->get('profile', 'UserController@profile');
@@ -31,6 +33,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     // Matches "/api/users
     $router->get('users', 'UserController@allUsers');
+
+    
 });
 
 

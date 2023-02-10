@@ -2,14 +2,18 @@
 
 return [
     'defaults' => [
-        'guard' => 'api',
+        'guard' => 'users',
         'passwords' => 'users',
     ],
 
     'guards' => [
-        'api' => [
+        'users' => [
             'driver' => 'jwt',
             'provider' => 'users',
+        ],
+        'guest' => [
+            'driver' => 'jwt',
+            'provider' => 'guests',
         ],
     ],
 
@@ -17,6 +21,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => \App\User::class
-        ]
+        ],
+        'guests' => [
+            'driver' => 'eloquent',
+            'model' => \App\Guest::class
+        ],
     ]
 ];
