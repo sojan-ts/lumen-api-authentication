@@ -20,11 +20,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => \App\User::class
+            'model' => \App\Models\User::class
         ],
         'guests' => [
             'driver' => 'eloquent',
-            'model' => \App\Guest::class
+            'model' => \App\Models\Guest::class
         ],
     ]
 ];
