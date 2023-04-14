@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-class UserController extends Controller
+class GuestController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:users');
+        $this->middleware('auth:guests');
     }
 
     public function allUsers()

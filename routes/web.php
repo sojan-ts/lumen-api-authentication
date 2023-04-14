@@ -17,24 +17,24 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 $router->group(['prefix' => 'api'], function () use ($router) {
-    // Matches "/api/register
+
     $router->post('registermember', 'AuthController@registerMember');
     $router->post('registerguest', 'AuthController@registerGuest');
-      // Matches "/api/login
-     $router->post('loginmember', 'AuthController@loginMember');
-     $router->post('loginguest', 'AuthController@loginGuest');
 
-    // Matches "/api/profile
-    $router->get('profile', 'UserController@profile');
+    $router->post('loginmember', 'AuthController@loginMember');
+    $router->post('loginguest', 'AuthController@loginGuest');
 
-    // Matches "/api/users/1 
-    //get one user by id
-    $router->get('users/{id}', 'UserController@singleUser');
+    $router->post('refreshmember','AuthController@refreshMember');
+    $router->post('refreshguest','AuthController@refreshGuest');
 
-    // Matches "/api/users
+});
+
+$router->group(['prefix' => 'api/u'], function () use ($router) {
     $router->get('users', 'UserController@allUsers');
+});
 
-    
+$router->group(['prefix' => 'api/g'], function () use ($router) {
+    $router->get('users', 'GuestController@allUsers'); 
 });
 
 
