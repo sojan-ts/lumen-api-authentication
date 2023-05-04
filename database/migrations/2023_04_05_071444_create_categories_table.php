@@ -13,12 +13,19 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
+        // Schema::create('categories', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->string('title');
+        //     $table->tinyInteger('visibility');
+        //     $table->bigInteger('type')->unsigned();
+        //     $table->foreign('type')->references('id')->on('types')->onDelete('cascade');
+        //     $table->timestamps();
+        // });
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
             $table->tinyInteger('visibility');
-            $table->bigInteger('type')->unsigned();
-            $table->foreign('type')->references('id')->on('types')->onDelete('cascade');
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-$router->group(['prefix' => 'api'], function () use ($router) {
+$router->group(['prefix' => 'api/auth'], function () use ($router) {
 
     $router->post('registermember', 'AuthController@registerMember');
     $router->post('registerguest', 'AuthController@registerGuest');
@@ -29,8 +29,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
 });
 
-$router->group(['prefix' => 'api/u'], function () use ($router) {
-    $router->get('users', 'UserController@allUsers');
+$router->group(['prefix' => 'api/user'], function () use ($router) {
+    $router->post('insertcategory', 'UserController@InsertCategory');
+    $router->patch('updatecategory/{id}', 'UserController@UpdateCategory');
+    $router->get('paginatecategory', 'UserController@PaginateCategory');
+    $router->post('uploadimagecategory/{id}', 'UserController@UploadImageCategory');
 });
 
 $router->group(['prefix' => 'api/g'], function () use ($router) {

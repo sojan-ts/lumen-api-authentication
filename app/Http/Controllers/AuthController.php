@@ -48,7 +48,7 @@ class AuthController extends Controller
         //validate incoming request 
         $this->validate($request, [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:guests',
             'password' => 'required|confirmed',
         ]);
 
@@ -82,7 +82,7 @@ class AuthController extends Controller
 
         $credentials = $request->only(['email', 'password']);
 
-        Auth::factory()->setTTL(1); // Set access token expiry time to 60 minutes
+        Auth::factory()->setTTL(1000); // Set access token expiry time to 60 minutes
 
         // Attempt to authenticate the user and generate an access token
         if (!$accessToken = Auth::guard('users')->attempt($credentials)) {
@@ -122,7 +122,7 @@ class AuthController extends Controller
         if (!$user || $user->refresh_token_expiry < Carbon::now()) {
             return response()->json(['message' => 'Refresh token is invalid or has expired'], 401);
         }
-        Auth::factory()->setTTL(1);
+        Auth::factory()->setTTL(1000);
         // Attempt to generate a new access token using the refresh token
         Auth::guard('users')->setToken($refreshToken);
         $newAccessToken = Auth::guard('users')->refresh();
@@ -154,7 +154,7 @@ class AuthController extends Controller
 
         $credentials = $request->only(['email', 'password']);
 
-        Auth::factory()->setTTL(1); // Set access token expiry time to 60 minutes
+        Auth::factory()->setTTL(1000); // Set access token expiry time to 60 minutes
 
         // Attempt to authenticate the user and generate an access token
         if (!$accessToken = Auth::guard('guests')->attempt($credentials)) {
@@ -195,7 +195,7 @@ class AuthController extends Controller
         if (!$user || $user->refresh_token_expiry < Carbon::now()) {
             return response()->json(['message' => 'Refresh token is invalid or has expired'], 401);
         }
-        Auth::factory()->setTTL(1);
+        Auth::factory()->setTTL(1000);
         // Attempt to generate a new access token using the refresh token
         Auth::guard('guests')->setToken($refreshToken);
         $newAccessToken = Auth::guard('guests')->refresh();

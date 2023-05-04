@@ -78,5 +78,34 @@ class OperationHelperController extends Controller
         }
     }
 
+    public function updateFilename($id, $modelName, $fileName, $path) {
+        $model = $modelName::find($id);
+        if (!$model) {
+            return response()->json(['error' => 'Record not found'], 404);
+        }
+    
+        // Get the current image file name
+        $currentImage = $model->image;
+    
+        if (isset($fileName)) {
+            $model->image = $fileName;
+        }
+    
+        if ($model->save()) {
+            // Unlink the old image file
+            if (!empty($currentImage)) {
+                $imagePath = public_path($path.'/' . $currentImage);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+    
+            return response()->json(['message' => 'UPDATED', 'description' => 'Image has been uploaded and record has been updated successfully'], 200);
+        } else {
+            return response()->json(['message' => 'FAILED'], 500);
+        }
+    }
+    
+
 
 }
